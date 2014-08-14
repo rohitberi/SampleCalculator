@@ -16,11 +16,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
 public class Calculator extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, View.OnClickListener {
+
+    private Button btn1;
+    private Button btn2;
+    private Button btn3;
+    private Button btn4;
+    private Button btn5;
+    private Button btn6;
+    private Button btn7;
+    private Button btn8;
+    private Button btn9;
+    private Button btn0;
+    private Button btnMinus;
+    private Button btnPlus;
+    private Button btnMultiply;
+    private Button btnDivide;
+    private Button btnEquals;
+    private Button btnDecimal;
+    private TextView txtResults;
+
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -45,7 +66,75 @@ public class Calculator extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        txtResults = (TextView) findViewById(R.id.txtResults);
+        btn1 = (Button)findViewById(R.id.btn1);
+        btn0 = (Button)findViewById(R.id.btn0);
+        btn2 = (Button)findViewById(R.id.btn2);
+        btn3 = (Button)findViewById(R.id.btn3);
+        btn4 = (Button)findViewById(R.id.btn4);
+        btn5 = (Button)findViewById(R.id.btn5);
+        btn6 = (Button)findViewById(R.id.btn6);
+        btn7 = (Button)findViewById(R.id.btn7);
+        btn8= (Button)findViewById(R.id.btn8);
+        btn9 = (Button)findViewById(R.id.btn9);
+        btnMinus = (Button)findViewById(R.id.btnMinus);
+        btnPlus = (Button)findViewById(R.id.btnPlus);
+        btnMultiply = (Button)findViewById(R.id.btnMultiply);
+        btnDivide = (Button)findViewById(R.id.btnDivide);
+        btnEquals = (Button)findViewById(R.id.btnEquals);
+        btnDecimal = (Button)findViewById(R.id.btnDecimal);
+
+        btn0.setOnClickListener(this);
+        btn1.setOnClickListener(this);
+        btn2.setOnClickListener(this);
+        btn3.setOnClickListener(this);
+        btn4.setOnClickListener(this);
+        btn5.setOnClickListener(this);
+        btn6.setOnClickListener(this);
+        btn7.setOnClickListener(this);
+        btn8.setOnClickListener(this);
+        btn9.setOnClickListener(this);
+        btnMinus.setOnClickListener(this);
+        btnPlus.setOnClickListener(this);
+        btnMultiply.setOnClickListener(this);
+        btnDivide.setOnClickListener(this);
+        btnEquals.setOnClickListener(this);
+        btnDecimal.setOnClickListener(this);
     }
+
+    public void onClick(View v) {
+        if (txtResults.getText().equals("0")){
+            txtResults.setText("");
+        }
+        switch (v.getId()){
+            case R.id.btn1:
+                txtResults.setText(txtResults.getText() + "1");
+            case R.id.btn2:
+                txtResults.setText(txtResults.getText() + "2");
+            case R.id.btn3:
+                txtResults.setText(txtResults.getText() + "3");
+            case R.id.btn4:
+                txtResults.setText(txtResults.getText() + "4");
+            case R.id.btn5:
+                txtResults.setText(txtResults.getText() + "5");
+            case R.id.btn6:
+                txtResults.setText(txtResults.getText() + "6");
+            case R.id.btn7:
+                txtResults.setText(txtResults.getText() + "7");
+            case R.id.btn8:
+                txtResults.setText(txtResults.getText() + "8");
+            case R.id.btn9:
+                txtResults.setText(txtResults.getText() + "9");
+            case R.id.btn0:
+                if (txtResults.getText().equals("")){
+                    // do nothing
+                } else {
+                    txtResults.setText(txtResults.getText() + "0");
+                }
+        }
+    }
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
