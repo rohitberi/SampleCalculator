@@ -41,6 +41,7 @@ public class Calculator extends Activity
     private Button btnEquals;
     private Button btnDecimal;
     private TextView txtResults;
+    private String sOperator = "";
 
 
     /**
@@ -132,6 +133,16 @@ public class Calculator extends Activity
                 } else {
                     txtResults.setText(txtResults.getText() + "0");
                 }
+            case R.id.btnPlus:
+                sOperator = "+";
+
+            case R.id.btnDivide:
+                sOperator = "/";
+            case R.id.btnMinus:
+                sOperator = "-";
+            case R.id.btnMultiply:
+                sOperator = "*";
+
         }
     }
 
