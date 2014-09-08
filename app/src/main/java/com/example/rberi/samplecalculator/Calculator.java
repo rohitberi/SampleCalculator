@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Calculator extends Activity
@@ -69,6 +70,7 @@ public class Calculator extends Activity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         txtResults = (TextView) findViewById(R.id.txtResults);
+        Toast.makeText(this,txtResults.getText(), Toast.LENGTH_LONG);
         btn1 = (Button)findViewById(R.id.btn1);
         btn0 = (Button)findViewById(R.id.btn0);
         btn2 = (Button)findViewById(R.id.btn2);
@@ -108,44 +110,71 @@ public class Calculator extends Activity
         if (txtResults.getText().equals("0")){
             txtResults.setText("");
         }
+
+
+
         switch (v.getId()){
             case R.id.btn1:
                 txtResults.setText(txtResults.getText() + "1");
+                break;
+
             case R.id.btn2:
                 txtResults.setText(txtResults.getText() + "2");
+                break;
+
             case R.id.btn3:
                 txtResults.setText(txtResults.getText() + "3");
+                break;
+
             case R.id.btn4:
                 txtResults.setText(txtResults.getText() + "4");
+                break;
+
             case R.id.btn5:
                 txtResults.setText(txtResults.getText() + "5");
+                break;
+
             case R.id.btn6:
                 txtResults.setText(txtResults.getText() + "6");
+                break;
+
             case R.id.btn7:
                 txtResults.setText(txtResults.getText() + "7");
+                break;
+
             case R.id.btn8:
                 txtResults.setText(txtResults.getText() + "8");
+                break;
+
             case R.id.btn9:
                 txtResults.setText(txtResults.getText() + "9");
+                break;
+
             case R.id.btn0:
                 if (txtResults.getText().equals("")){
                     // do nothing
                 } else {
                     txtResults.setText(txtResults.getText() + "0");
                 }
+                break;
+
             case R.id.btnPlus:
                 sOperator = "+";
+                break;
 
             case R.id.btnDivide:
                 sOperator = "/";
+                break;
+
             case R.id.btnMinus:
                 sOperator = "-";
+                break;
+
             case R.id.btnMultiply:
                 sOperator = "*";
-
+                break;
         }
     }
-
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
