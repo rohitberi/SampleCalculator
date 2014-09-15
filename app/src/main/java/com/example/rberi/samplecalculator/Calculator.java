@@ -42,6 +42,7 @@ public class Calculator extends Activity
     private Button btnEquals;
     private Button btnDecimal;
     private TextView txtResults;
+    private TextView txtOperator;
     private String sOperator = "";
 
 
@@ -70,7 +71,10 @@ public class Calculator extends Activity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         txtResults = (TextView) findViewById(R.id.txtResults);
-        Toast.makeText(this,txtResults.getText(), Toast.LENGTH_LONG);
+        txtOperator = (TextView) findViewById(R.id.txtOperator);
+
+        //Toast.makeText(this,txtResults.getText(), Toast.LENGTH_LONG);
+
         btn1 = (Button)findViewById(R.id.btn1);
         btn0 = (Button)findViewById(R.id.btn0);
         btn2 = (Button)findViewById(R.id.btn2);
@@ -87,6 +91,7 @@ public class Calculator extends Activity
         btnDivide = (Button)findViewById(R.id.btnDivide);
         btnEquals = (Button)findViewById(R.id.btnEquals);
         btnDecimal = (Button)findViewById(R.id.btnDecimal);
+
 
         btn0.setOnClickListener(this);
         btn1.setOnClickListener(this);
@@ -111,7 +116,8 @@ public class Calculator extends Activity
             txtResults.setText("");
         }
 
-
+        // Store value of currently selected Operator in this variable.
+        sOperator = txtOperator.getText().toString();
 
         switch (v.getId()){
             case R.id.btn1:
@@ -159,19 +165,29 @@ public class Calculator extends Activity
                 break;
 
             case R.id.btnPlus:
-                sOperator = "+";
+                if (sOperator != "") {
+                    sOperator = "+";
+                    txtOperator.setText("+");
+                }
                 break;
 
             case R.id.btnDivide:
-                sOperator = "/";
+                if (sOperator != "") {
+                    sOperator = "/";
+                    txtOperator.setText("/");
+                }
                 break;
-
             case R.id.btnMinus:
-                sOperator = "-";
+                if (sOperator != "") {
+                    sOperator = "-";
+                    txtOperator.setText("-");
+                }
                 break;
-
             case R.id.btnMultiply:
-                sOperator = "*";
+                if (sOperator != "") {
+                    sOperator = "*";
+                    txtOperator.setText("*");
+                }
                 break;
         }
     }

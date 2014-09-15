@@ -9,5 +9,18 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
-
+    <string name="strButton1">1</string>
+    <string name="strButton2">2</string>
+    <string name="strButton3">3</string>
+    <string name="strButton4">4</string>
+    <string name="strButton5">5</string>
+    <string name="strButton6">6</string>
+    <string name="strButton7">7</string>
+    <string name="strButton8">8</string>
+    <string name="strButton9">9</string>
+    <string name="strButton0">0</string>
+    <string name="strButtonPlus">+</string>
+    <string name="strButtonMinus">-</string>
+    <string name="strButtonDivide">/</string>
+    <string name="strButtonMultiply">*</string>
 </resources>
