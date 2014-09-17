@@ -34,7 +34,15 @@
                     android:textSize="@android:dimen/notification_large_icon_width"
                     android:textStyle="bold"
                     android:layout_weight="1"
-                    android:layout_span="6"
+                    android:layout_gravity="right" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text=""
+                    android:id="@+id/txtOperator"
+                    android:textSize="@android:dimen/notification_large_icon_width"
+                    android:layout_weight="1"
                     android:layout_gravity="right" />
             </TableRow>
 
@@ -171,23 +179,35 @@
             </TableRow>
 
             <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="fill_parent"
-                android:showDividers="beginning"
-                android:layout_gravity="left|top">
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-                <TextView
-                    android:layout_width="match_parent"
+                <Button
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text=""
-                    android:id="@+id/txtOperator"
-                    android:textSize="@android:dimen/notification_large_icon_width"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:layout_span="6"
-                    android:layout_gravity="right" />
+                    android:text="C"
+                    android:id="@+id/btnClear"
+                    android:layout_weight="1" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/strMemoryClear"
+                    android:id="@+id/btnMemoryClear"
+                    android:layout_weight="1" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/strMemoryPlus"
+                    android:id="@+id/btnMemoryPlus"
+                    android:layout_weight="1" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/strMemoryMinus"
+                    android:id="@+id/btnMemoryMinus"
+                    android:layout_weight="1" />
             </TableRow>
+
         </TableLayout>
     </FrameLayout>
 

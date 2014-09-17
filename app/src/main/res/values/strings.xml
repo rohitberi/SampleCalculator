@@ -23,4 +23,7 @@
     <string name="strButtonMinus">-</string>
     <string name="strButtonDivide">/</string>
     <string name="strButtonMultiply">*</string>
+    <string name="strMemoryClear">MC</string>
+    <string name="strMemoryPlus">M+</string>
+    <string name="strMemoryMinus">M-</string>
 </resources>
