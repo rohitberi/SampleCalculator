@@ -8,6 +8,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -179,18 +180,23 @@ public class Calculator extends Activity
                 break;
 
             case R.id.btnEquals:
-                if (sBeforeOperatorDisplayValue.equals("") && sOperator != ""){
+                Log.e("DEBUG", "Entering Switch case for Equals...");
+                if (! sBeforeOperatorDisplayValue.equals("") && sOperator != ""){
                     switch (sOperator){
                         case "+":
+                            Log.e("DEBUG", "Addition Operation to begin");
                             break;
 
                         case "-":
+                            Log.e("DEBUG", "Subtraction Operation to begin");
                             break;
 
                         case "/" :
+                            Log.e("DEBUG", "Division Operation to begin");
                             break;
 
                         case "*":
+                            Log.e("DEBUG", "Multiplications Operation to begin");
                             break;
                     }
 
@@ -202,21 +208,17 @@ public class Calculator extends Activity
                 Toast.makeText(this,"Button + pressed",Toast.LENGTH_SHORT).show();
                 Toast.makeText(this,"sOperator = '" + sOperator.toString() + "' pressed", Toast.LENGTH_SHORT).show();
                 if (sOperator.equals("")) {
-                    Toast.makeText(this,"TRUE", Toast.LENGTH_SHORT).show();
                     // if the operator is being pressed the first time
                     sOperator = "+";
                     txtOperator.setText("+");
                     sBeforeOperatorDisplayValue = txtResults.getText().toString();
                     txtResults.setText("");
-
                 }else{
-                    Toast.makeText(this,"FALSE", Toast.LENGTH_SHORT).show();
                     // if the operator is already set, leave it as is.
                 }
                 break;
 
             case R.id.btnDivide:
-                Toast.makeText(this,"Button / pressed",Toast.LENGTH_SHORT).show();
                 Toast.makeText(this,"sOperator = " + sOperator.toString() + "pressed", Toast.LENGTH_LONG).show();
                 if (sOperator != "") {
                     sOperator = "/";
@@ -224,7 +226,6 @@ public class Calculator extends Activity
                 }
                 break;
             case R.id.btnMinus:
-                Toast.makeText(this,"Button - pressed",Toast.LENGTH_SHORT).show();
                 Toast.makeText(this,"sOperator = " + sOperator.toString() + "pressed", Toast.LENGTH_LONG).show();
                 if (sOperator != "") {
                     sOperator = "-";
@@ -232,7 +233,6 @@ public class Calculator extends Activity
                 }
                 break;
             case R.id.btnMultiply:
-                Toast.makeText(this,"Button * pressed",Toast.LENGTH_SHORT).show();
                 Toast.makeText(this,"sOperator = " + sOperator.toString() + "pressed", Toast.LENGTH_LONG).show();
                 if (sOperator != "") {
                     sOperator = "*";
@@ -240,8 +240,6 @@ public class Calculator extends Activity
                 }
                 break;
             case R.id.btnClear:
-                Toast.makeText(this,"Button CLEAR pressed",Toast.LENGTH_SHORT).show();
-                Toast.makeText(this,"sOperator = " + sOperator.toString() + "pressed", Toast.LENGTH_LONG).show();
                 sOperator = "";
                 txtOperator.setText("");
                 txtResults.setText("0");
