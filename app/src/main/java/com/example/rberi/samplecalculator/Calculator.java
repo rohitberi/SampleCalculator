@@ -185,6 +185,19 @@ public class Calculator extends Activity
                     switch (sOperator){
                         case "+":
                             Log.e("DEBUG", "Addition Operation to begin");
+                            Log.e("DEBUG", "sBeforeOperatorDisplayValue: " + sBeforeOperatorDisplayValue);
+                            Log.e("DEBUG", "txtResults.getText: " + txtResults.getText());
+                            //txtResults.setText(Integer.getInteger(sBeforeOperatorDisplayValue) + Integer.getInteger(txtResults.getText().toString()) );
+
+                            //String sumExpression = "2+6";
+                            String sumExpression = txtResults.getText().toString();
+                            String[] numbers = sumExpression.split("\\+");
+                            int total = 0;
+
+                            for (String number: numbers) {
+                                total += Integer.parseInt(number.trim());
+                            }
+                            txtResults.setText(String.valueOf(total));
                             break;
 
                         case "-":
@@ -196,7 +209,7 @@ public class Calculator extends Activity
                             break;
 
                         case "*":
-                            Log.e("DEBUG", "Multiplications Operation to begin");
+                            Log.e("DEBUG", "Multiplication Operation to begin");
                             break;
                     }
 
