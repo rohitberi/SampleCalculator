@@ -78,30 +78,28 @@ public class Calculator extends Activity
 
         txtResults = (TextView) findViewById(R.id.txtResults);
         txtOperator = (TextView) findViewById(R.id.txtOperator);
-        sBeforeOperatorDisplayValue="";
+        sBeforeOperatorDisplayValue = "";
 
-        //Toast.makeText(this,txtResults.getText(), Toast.LENGTH_LONG);
-
-        btn1 = (Button)findViewById(R.id.btn1);
-        btn0 = (Button)findViewById(R.id.btn0);
-        btn2 = (Button)findViewById(R.id.btn2);
-        btn3 = (Button)findViewById(R.id.btn3);
-        btn4 = (Button)findViewById(R.id.btn4);
-        btn5 = (Button)findViewById(R.id.btn5);
-        btn6 = (Button)findViewById(R.id.btn6);
-        btn7 = (Button)findViewById(R.id.btn7);
-        btn8= (Button)findViewById(R.id.btn8);
-        btn9 = (Button)findViewById(R.id.btn9);
-        btnMinus = (Button)findViewById(R.id.btnMinus);
-        btnPlus = (Button)findViewById(R.id.btnPlus);
-        btnMultiply = (Button)findViewById(R.id.btnMultiply);
-        btnDivide = (Button)findViewById(R.id.btnDivide);
-        btnEquals = (Button)findViewById(R.id.btnEquals);
-        btnDecimal = (Button)findViewById(R.id.btnDecimal);
-        btnClear = (Button)findViewById(R.id.btnClear);
-        btnMemoryClear = (Button)findViewById(R.id.btnClear);
+        btn1 = (Button) findViewById(R.id.btn1);
+        btn0 = (Button) findViewById(R.id.btn0);
+        btn2 = (Button) findViewById(R.id.btn2);
+        btn3 = (Button) findViewById(R.id.btn3);
+        btn4 = (Button) findViewById(R.id.btn4);
+        btn5 = (Button) findViewById(R.id.btn5);
+        btn6 = (Button) findViewById(R.id.btn6);
+        btn7 = (Button) findViewById(R.id.btn7);
+        btn8 = (Button) findViewById(R.id.btn8);
+        btn9 = (Button) findViewById(R.id.btn9);
+        btnMinus = (Button) findViewById(R.id.btnMinus);
+        btnPlus = (Button) findViewById(R.id.btnPlus);
+        btnMultiply = (Button) findViewById(R.id.btnMultiply);
+        btnDivide = (Button) findViewById(R.id.btnDivide);
+        btnEquals = (Button) findViewById(R.id.btnEquals);
+        btnDecimal = (Button) findViewById(R.id.btnDecimal);
+        btnClear = (Button) findViewById(R.id.btnClear);
+        btnMemoryClear = (Button) findViewById(R.id.btnClear);
         btnMemoryPlus = (Button) findViewById(R.id.btnMemoryPlus);
-        btnMemoryMinus = (Button)findViewById(R.id.btnMemoryMinus);
+        btnMemoryMinus = (Button) findViewById(R.id.btnMemoryMinus);
 
 
         btn0.setOnClickListener(this);
@@ -127,14 +125,14 @@ public class Calculator extends Activity
     }
 
     public void onClick(View v) {
-        if (txtResults.getText().equals("0")){
+        if (txtResults.getText().equals("0")) {
             txtResults.setText("");
         }
 
         // Store value of currently selected Operator in this variable.
         sOperator = txtOperator.getText().toString();
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn1:
                 txtResults.setText(txtResults.getText() + "1");
                 break;
@@ -172,7 +170,7 @@ public class Calculator extends Activity
                 break;
 
             case R.id.btn0:
-                if (txtResults.getText().equals("")){
+                if (txtResults.getText().equals("")) {
                     // do nothing
                 } else {
                     txtResults.setText(txtResults.getText() + "0");
@@ -181,77 +179,131 @@ public class Calculator extends Activity
 
             case R.id.btnEquals:
                 Log.e("DEBUG", "Entering Switch case for Equals...");
-                if (! sBeforeOperatorDisplayValue.equals("") && sOperator != ""){
-                    switch (sOperator){
+                if (!sBeforeOperatorDisplayValue.equals("") && sOperator != "") {
+                    switch (sOperator) {
                         case "+":
                             Log.e("DEBUG", "Addition Operation to begin");
                             Log.e("DEBUG", "sBeforeOperatorDisplayValue: " + sBeforeOperatorDisplayValue);
                             Log.e("DEBUG", "txtResults.getText: " + txtResults.getText());
-                            //txtResults.setText(Integer.getInteger(sBeforeOperatorDisplayValue) + Integer.getInteger(txtResults.getText().toString()) );
 
-                            //String sumExpression = "2+6";
-                            String sumExpression = txtResults.getText().toString();
-                            String[] numbers = sumExpression.split("\\+");
-                            int total = 0;
-
-                            for (String number: numbers) {
-                                total += Integer.parseInt(number.trim());
+                            try {
+                                int iTotal = Integer.parseInt(sBeforeOperatorDisplayValue) + Integer.parseInt(txtResults.getText().toString());
+                                txtResults.setText(String.valueOf(iTotal));
+                            } catch (NumberFormatException nfe) {
+                                System.out.println("Could not parse " + nfe);
+                                Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
                             }
-                            txtResults.setText(String.valueOf(total));
+
+							/*
+                            //String sumExpression = "2+6";
+							String sumExpression = txtResults.getText().toString();
+							String[] numbers = sumExpression.split("\\+");
+							int total = 0;
+
+							for (String number: numbers) {
+								total += Integer.parseInt(number.trim());
+							}
+							txtResults.setText(String.valueOf(total));
+							*/
+
                             break;
 
                         case "-":
                             Log.e("DEBUG", "Subtraction Operation to begin");
+
+                            try {
+                                int iTotal = Integer.parseInt(sBeforeOperatorDisplayValue) - Integer.parseInt(txtResults.getText().toString());
+                                txtResults.setText(String.valueOf(iTotal));
+                            } catch (NumberFormatException nfe) {
+                                System.out.println("Could not parse " + nfe);
+                                Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
+                            }
+
                             break;
 
-                        case "/" :
+                        case "/":
                             Log.e("DEBUG", "Division Operation to begin");
+
+                            try {
+                                int iTotal = Integer.parseInt(sBeforeOperatorDisplayValue) / Integer.parseInt(txtResults.getText().toString());
+                                txtResults.setText(String.valueOf(iTotal));
+                            } catch (NumberFormatException nfe) {
+                                System.out.println("Could not parse " + nfe);
+                                Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
+                            }
+
                             break;
 
                         case "*":
                             Log.e("DEBUG", "Multiplication Operation to begin");
+
+                            try {
+                                int iTotal = Integer.parseInt(sBeforeOperatorDisplayValue) * Integer.parseInt(txtResults.getText().toString());
+                                txtResults.setText(String.valueOf(iTotal));
+                            } catch (NumberFormatException nfe) {
+                                System.out.println("Could not parse " + nfe);
+                                Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
+                            }
+
                             break;
                     }
-
+                    txtOperator.setText("");
+                    sBeforeOperatorDisplayValue="";
+                    sOperator="";
                     //txtResults =   sBeforeOperatorDisplayValue
                 }
                 break;
 
             case R.id.btnPlus:
-                Toast.makeText(this,"Button + pressed",Toast.LENGTH_SHORT).show();
-                Toast.makeText(this,"sOperator = '" + sOperator.toString() + "' pressed", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Button + pressed", Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(this, "sOperator = '" + sOperator.toString() + "' pressed", Toast.LENGTH_SHORT).show();
                 if (sOperator.equals("")) {
                     // if the operator is being pressed the first time
                     sOperator = "+";
                     txtOperator.setText("+");
                     sBeforeOperatorDisplayValue = txtResults.getText().toString();
                     txtResults.setText("");
-                }else{
+                } else {
                     // if the operator is already set, leave it as is.
                 }
                 break;
 
             case R.id.btnDivide:
-                Toast.makeText(this,"sOperator = " + sOperator.toString() + "pressed", Toast.LENGTH_LONG).show();
-                if (sOperator != "") {
+                if (sOperator.equals("")) {
+                    // if the operator is being pressed the first time
                     sOperator = "/";
                     txtOperator.setText("/");
+                    sBeforeOperatorDisplayValue = txtResults.getText().toString();
+                    txtResults.setText("");
+                } else {
+                    // if the operator is already set, leave it as is.
                 }
                 break;
+
             case R.id.btnMinus:
-                Toast.makeText(this,"sOperator = " + sOperator.toString() + "pressed", Toast.LENGTH_LONG).show();
-                if (sOperator != "") {
+                if (sOperator.equals("")) {
+                    // if the operator is being pressed the first time
                     sOperator = "-";
                     txtOperator.setText("-");
+                    sBeforeOperatorDisplayValue = txtResults.getText().toString();
+                    txtResults.setText("");
+                } else {
+                    // if the operator is already set, leave it as is.
                 }
                 break;
+
             case R.id.btnMultiply:
-                Toast.makeText(this,"sOperator = " + sOperator.toString() + "pressed", Toast.LENGTH_LONG).show();
-                if (sOperator != "") {
+                if (sOperator.equals("")) {
+                    // if the operator is being pressed the first time
                     sOperator = "*";
                     txtOperator.setText("*");
+                    sBeforeOperatorDisplayValue = txtResults.getText().toString();
+                    txtResults.setText("");
+                } else {
+                    // if the operator is already set, leave it as is.
                 }
                 break;
+
             case R.id.btnClear:
                 sOperator = "";
                 txtOperator.setText("");
@@ -351,7 +403,7 @@ public class Calculator extends Activity
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
+                                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_calculator, container, false);
             return rootView;
         }
