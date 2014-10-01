@@ -50,6 +50,7 @@ public class Calculator extends Activity
     private String sBeforeOperatorDisplayValue;
     private TextView txtOperator;
     private String sOperator = "";
+    private Boolean bReadforReset = false;
 
 
     /**
@@ -125,8 +126,9 @@ public class Calculator extends Activity
     }
 
     public void onClick(View v) {
-        if (txtResults.getText().equals("0")) {
+        if (txtResults.getText().equals("0") || bReadforReset) {
             txtResults.setText("");
+            bReadforReset = false;
         }
 
         // Store value of currently selected Operator in this variable.
@@ -178,6 +180,7 @@ public class Calculator extends Activity
                 break;
 
             case R.id.btnEquals:
+                bReadforReset = true;
                 Log.e("DEBUG", "Entering Switch case for Equals...");
                 if (!sBeforeOperatorDisplayValue.equals("") && sOperator != "") {
                     switch (sOperator) {
