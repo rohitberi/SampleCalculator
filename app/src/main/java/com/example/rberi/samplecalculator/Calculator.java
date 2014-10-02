@@ -47,10 +47,12 @@ public class Calculator extends Activity
     private Button btnMemoryPlus;
     private Button btnMemoryMinus;
     private TextView txtResults;
-    private String sBeforeOperatorDisplayValue;
-    private TextView txtOperator;
-    private String sOperator = "";
-    private Boolean bReadforReset = false;
+
+    private Boolean bStartFresh = false;
+    private String sMemory = "";
+    private String sMemoryOperator = "";
+
+
 
 
     /**
@@ -78,8 +80,6 @@ public class Calculator extends Activity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         txtResults = (TextView) findViewById(R.id.txtResults);
-        txtOperator = (TextView) findViewById(R.id.txtOperator);
-        sBeforeOperatorDisplayValue = "";
 
         btn1 = (Button) findViewById(R.id.btn1);
         btn0 = (Button) findViewById(R.id.btn0);
@@ -126,140 +126,176 @@ public class Calculator extends Activity
     }
 
     public void onClick(View v) {
-        if (txtResults.getText().equals("0") || bReadforReset) {
-            txtResults.setText("");
-            bReadforReset = false;
-        }
 
-        // Store value of currently selected Operator in this variable.
-        sOperator = txtOperator.getText().toString();
+        // if the calculation is done then clear display text
+        if (bStartFresh){
+            bStartFresh = false;
+            txtResults.setText("0");
+            sMemoryOperator = "";
+            sMemory = "";
+        }
 
         switch (v.getId()) {
             case R.id.btn1:
+                if (txtResults.getText().equals("0")){
+                    txtResults.setText("");
+                }
                 txtResults.setText(txtResults.getText() + "1");
                 break;
 
             case R.id.btn2:
+                if (txtResults.getText().equals("0")){
+                    txtResults.setText("");
+                }
+
                 txtResults.setText(txtResults.getText() + "2");
                 break;
 
             case R.id.btn3:
+                if (txtResults.getText().equals("0")){
+                    txtResults.setText("");
+                }
+
                 txtResults.setText(txtResults.getText() + "3");
                 break;
 
             case R.id.btn4:
+                if (txtResults.getText().equals("0")){
+                    txtResults.setText("");
+                }
+
                 txtResults.setText(txtResults.getText() + "4");
                 break;
 
             case R.id.btn5:
+                if (txtResults.getText().equals("0")){
+                    txtResults.setText("");
+                }
+
                 txtResults.setText(txtResults.getText() + "5");
                 break;
 
             case R.id.btn6:
+                if (txtResults.getText().equals("0")){
+                    txtResults.setText("");
+                }
+
                 txtResults.setText(txtResults.getText() + "6");
                 break;
 
             case R.id.btn7:
+                if (txtResults.getText().equals("0")){
+                    txtResults.setText("");
+                }
+
                 txtResults.setText(txtResults.getText() + "7");
                 break;
 
             case R.id.btn8:
+                if (txtResults.getText().equals("0")){
+                    txtResults.setText("");
+                }
+
                 txtResults.setText(txtResults.getText() + "8");
                 break;
 
             case R.id.btn9:
+                if (txtResults.getText().equals("0")){
+                    txtResults.setText("");
+                }
                 txtResults.setText(txtResults.getText() + "9");
                 break;
 
             case R.id.btn0:
-                if (txtResults.getText().equals("")) {
-                    // do nothing
-                } else {
+                if (txtResults.getText().equals("0")) {
+                }
+                else {
                     txtResults.setText(txtResults.getText() + "0");
                 }
                 break;
 
             case R.id.btnEquals:
-                bReadforReset = true;
-                Log.e("DEBUG", "Entering Switch case for Equals...");
-                if (!sBeforeOperatorDisplayValue.equals("") && sOperator != "") {
-                    switch (sOperator) {
-                        case "+":
-                            Log.e("DEBUG", "Addition Operation to begin");
-                            Log.e("DEBUG", "sBeforeOperatorDisplayValue: " + sBeforeOperatorDisplayValue);
-                            Log.e("DEBUG", "txtResults.getText: " + txtResults.getText());
 
-                            try {
-                                int iTotal = Integer.parseInt(sBeforeOperatorDisplayValue) + Integer.parseInt(txtResults.getText().toString());
-                                txtResults.setText(String.valueOf(iTotal));
-                            } catch (NumberFormatException nfe) {
-                                System.out.println("Could not parse " + nfe);
-                                Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
-                            }
+                if (sMemoryOperator == ""){
+                    // do Nothing
+                    Toast.makeText(this,"There's Nothing to calculate",Toast.LENGTH_SHORT).show();
+                } else{
+                    // ensure the second value to compare is NOT ZERO
+                    // might have to change this later as we may want ZERO to be on the list.
+                    Toast.makeText(this,"Memory:: " + String.valueOf(sMemory) + "  Current:: " + txtResults.getText().toString() + "  sMemoryOperator:: " + sMemoryOperator,Toast.LENGTH_SHORT).show();
 
-							/*
-                            //String sumExpression = "2+6";
-							String sumExpression = txtResults.getText().toString();
-							String[] numbers = sumExpression.split("\\+");
-							int total = 0;
+                    if ( ! txtResults.getText().equals("0")){
+                        Toast.makeText(this,"Inside, txtResults.getText is NOT EQUAL to ZERO",Toast.LENGTH_SHORT).show();
+                        switch (sMemoryOperator) {
+                            case "+":
+                                Log.e("DEBUG", "Addition Operation to begin");
 
-							for (String number: numbers) {
-								total += Integer.parseInt(number.trim());
-							}
-							txtResults.setText(String.valueOf(total));
-							*/
+                                try {
+                                    int iTotal = Integer.parseInt(sMemory) + Integer.parseInt(txtResults.getText().toString());
+                                    Log.e("DEBUG", "iTotal:: " + String.valueOf(iTotal));
+                                    txtResults.setText(String.valueOf(iTotal));
+                                } catch (NumberFormatException nfe) {
+                                    System.out.println("Could not parse " + nfe);
+                                    Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
+                                }
 
-                            break;
+                                bStartFresh = true;
 
-                        case "-":
-                            Log.e("DEBUG", "Subtraction Operation to begin");
+                                break;
 
-                            try {
-                                int iTotal = Integer.parseInt(sBeforeOperatorDisplayValue) - Integer.parseInt(txtResults.getText().toString());
-                                txtResults.setText(String.valueOf(iTotal));
-                            } catch (NumberFormatException nfe) {
-                                System.out.println("Could not parse " + nfe);
-                                Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
-                            }
+                            case "-":
+                                Log.e("DEBUG", "Subtraction Operation to begin");
 
-                            break;
+                                try {
+                                    int iTotal = Integer.parseInt(sMemory) - Integer.parseInt(txtResults.getText().toString());
+                                    txtResults.setText(String.valueOf(iTotal));
+                                } catch (NumberFormatException nfe) {
+                                    System.out.println("Could not parse " + nfe);
+                                    Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
+                                }
 
-                        case "/":
-                            Log.e("DEBUG", "Division Operation to begin");
+                                bStartFresh = true;
 
-                            try {
-                                int iTotal = Integer.parseInt(sBeforeOperatorDisplayValue) / Integer.parseInt(txtResults.getText().toString());
-                                txtResults.setText(String.valueOf(iTotal));
-                            } catch (NumberFormatException nfe) {
-                                System.out.println("Could not parse " + nfe);
-                                Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
-                            }
+                                break;
 
-                            break;
+                            case "/":
+                                Log.e("DEBUG", "Division Operation to begin");
 
-                        case "*":
-                            Log.e("DEBUG", "Multiplication Operation to begin");
+                                try {
+                                    int iTotal = Integer.parseInt(sMemory) / Integer.parseInt(txtResults.getText().toString());
+                                    txtResults.setText(String.valueOf(iTotal));
+                                } catch (NumberFormatException nfe) {
+                                    System.out.println("Could not parse " + nfe);
+                                    Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
+                                }
 
-                            try {
-                                int iTotal = Integer.parseInt(sBeforeOperatorDisplayValue) * Integer.parseInt(txtResults.getText().toString());
-                                txtResults.setText(String.valueOf(iTotal));
-                            } catch (NumberFormatException nfe) {
-                                System.out.println("Could not parse " + nfe);
-                                Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
-                            }
+                                bStartFresh = true;
 
-                            break;
+                                break;
+
+                            case "*":
+                                Log.e("DEBUG", "Multiplication Operation to begin");
+
+                                try {
+                                    int iTotal = Integer.parseInt(sMemory) * Integer.parseInt(txtResults.getText().toString());
+                                    txtResults.setText(String.valueOf(iTotal));
+                                } catch (NumberFormatException nfe) {
+                                    System.out.println("Could not parse " + nfe);
+                                    Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
+                                }
+
+                                bStartFresh = true;
+
+                                break;
+                        }
                     }
-                    txtOperator.setText("");
-                    sBeforeOperatorDisplayValue="";
-                    sOperator="";
-                    //txtResults =   sBeforeOperatorDisplayValue
                 }
+
                 break;
 
             case R.id.btnPlus:
-                //Toast.makeText(this, "Button + pressed", Toast.LENGTH_SHORT).show();
               //  Toast.makeText(this, "sOperator = '" + sOperator.toString() + "' pressed", Toast.LENGTH_SHORT).show();
+                /*
                 if (sOperator.equals("")) {
                     // if the operator is being pressed the first time
                     sOperator = "+";
@@ -269,53 +305,64 @@ public class Calculator extends Activity
                 } else {
                     // if the operator is already set, leave it as is.
                 }
+                */
+
+                if (sMemoryOperator == ""){
+                    sMemoryOperator = "+";
+                    sMemory = txtResults.getText().toString();
+                    txtResults.setText("0");
+                }
+                else {
+                    Toast.makeText(this, "Addition:: One Operator at one time ", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.btnDivide:
-                if (sOperator.equals("")) {
-                    // if the operator is being pressed the first time
-                    sOperator = "/";
-                    txtOperator.setText("/");
-                    sBeforeOperatorDisplayValue = txtResults.getText().toString();
-                    txtResults.setText("");
-                } else {
-                    // if the operator is already set, leave it as is.
+                if (sMemoryOperator == ""){
+                    sMemoryOperator = "/";
+                    sMemory = txtResults.getText().toString();
+                    txtResults.setText("0");
+                }
+                else {
+                    Toast.makeText(this, "Division:: One Operator at one time ", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
             case R.id.btnMinus:
-                if (sOperator.equals("")) {
-                    // if the operator is being pressed the first time
-                    sOperator = "-";
-                    txtOperator.setText("-");
-                    sBeforeOperatorDisplayValue = txtResults.getText().toString();
-                    txtResults.setText("");
-                } else {
-                    // if the operator is already set, leave it as is.
+                if (sMemoryOperator == ""){
+                    sMemoryOperator = "-";
+                    sMemory = txtResults.getText().toString();
+                    txtResults.setText("0");
+                }
+                else {
+                    Toast.makeText(this, "Subtract:: One Operator at one time ", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
             case R.id.btnMultiply:
-                if (sOperator.equals("")) {
-                    // if the operator is being pressed the first time
-                    sOperator = "*";
-                    txtOperator.setText("*");
-                    sBeforeOperatorDisplayValue = txtResults.getText().toString();
-                    txtResults.setText("");
-                } else {
-                    // if the operator is already set, leave it as is.
+                if (sMemoryOperator == ""){
+                    sMemoryOperator = "*";
+                    sMemory = txtResults.getText().toString();
+                    txtResults.setText("0");
                 }
+                else {
+                    Toast.makeText(this, "Multiple:: One Operator at one time ", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
 
             case R.id.btnClear:
-                sOperator = "";
-                txtOperator.setText("");
+                sMemory = "";
+                sMemoryOperator = "";
                 txtResults.setText("0");
-                sBeforeOperatorDisplayValue = "";
+
                 break;
 
             case R.id.btnMemoryClear:
+                sMemory = "";
+                sMemoryOperator = "";
                 break;
+
             case R.id.btnMemoryPlus:
                 break;
             case R.id.btnMemoryMinus:
