@@ -49,6 +49,7 @@ public class Calculator extends Activity
     private TextView txtResults;
 
     private Boolean bStartFresh = false;
+    private String sPreviousDisplay = "" ;
     private String sMemory = "";
     private String sMemoryOperator = "";
 
@@ -132,6 +133,7 @@ public class Calculator extends Activity
             bStartFresh = false;
             txtResults.setText("0");
             sMemoryOperator = "";
+            sPreviousDisplay = "";
             sMemory = "";
         }
 
@@ -222,150 +224,181 @@ public class Calculator extends Activity
                 } else{
                     // ensure the second value to compare is NOT ZERO
                     // might have to change this later as we may want ZERO to be on the list.
-                    Toast.makeText(this,"Memory:: " + String.valueOf(sMemory) + "  Current:: " + txtResults.getText().toString() + "  sMemoryOperator:: " + sMemoryOperator,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Memory:: " + String.valueOf(sPreviousDisplay) + "  Current:: " + txtResults.getText().toString() + "  sMemoryOperator:: " + sMemoryOperator,Toast.LENGTH_SHORT).show();
 
                     if ( ! txtResults.getText().equals("0")){
                         Toast.makeText(this,"Inside, txtResults.getText is NOT EQUAL to ZERO",Toast.LENGTH_SHORT).show();
                         switch (sMemoryOperator) {
                             case "+":
-                                Log.e("DEBUG", "Addition Operation to begin");
+                                Log.e("DebugRB", "Addition Operation to begin");
 
                                 try {
-                                    int iTotal = Integer.parseInt(sMemory) + Integer.parseInt(txtResults.getText().toString());
-                                    Log.e("DEBUG", "iTotal:: " + String.valueOf(iTotal));
+                                    int iTotal = Integer.parseInt(sPreviousDisplay) + Integer.parseInt(txtResults.getText().toString());
+                                    Log.e("DebugRB", "iTotal:: " + String.valueOf(iTotal));
                                     txtResults.setText(String.valueOf(iTotal));
                                 } catch (NumberFormatException nfe) {
                                     System.out.println("Could not parse " + nfe);
-                                    Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
+                                    Log.e("DebugRB", "nfe.getMessage(): " + nfe.getMessage());
                                 }
-
-                                bStartFresh = true;
-
+                                //bStartFresh = true;
+                                // causing issue with M memory functions
+                                sMemoryOperator = "";
                                 break;
 
                             case "-":
-                                Log.e("DEBUG", "Subtraction Operation to begin");
+                                Log.e("DebugRB", "Subtraction Operation to begin");
 
                                 try {
-                                    int iTotal = Integer.parseInt(sMemory) - Integer.parseInt(txtResults.getText().toString());
+                                    int iTotal = Integer.parseInt(sPreviousDisplay) - Integer.parseInt(txtResults.getText().toString());
                                     txtResults.setText(String.valueOf(iTotal));
                                 } catch (NumberFormatException nfe) {
                                     System.out.println("Could not parse " + nfe);
-                                    Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
+                                    Log.e("DebugRB", "nfe.getMessage(): " + nfe.getMessage());
                                 }
-
-                                bStartFresh = true;
-
+                                //bStartFresh = true;
+                                // causing issue with M memory functions
+                                sMemoryOperator = "";
                                 break;
 
                             case "/":
-                                Log.e("DEBUG", "Division Operation to begin");
+                                Log.e("DebugRB", "Division Operation to begin");
 
                                 try {
-                                    int iTotal = Integer.parseInt(sMemory) / Integer.parseInt(txtResults.getText().toString());
+                                    int iTotal = Integer.parseInt(sPreviousDisplay) / Integer.parseInt(txtResults.getText().toString());
                                     txtResults.setText(String.valueOf(iTotal));
                                 } catch (NumberFormatException nfe) {
                                     System.out.println("Could not parse " + nfe);
-                                    Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
+                                    Log.e("DebugRB", "nfe.getMessage(): " + nfe.getMessage());
                                 }
-
-                                bStartFresh = true;
-
+                                //bStartFresh = true;
+                                // causing issue with M memory functions
+                                sMemoryOperator = "";
                                 break;
 
                             case "*":
-                                Log.e("DEBUG", "Multiplication Operation to begin");
+                                Log.e("DebugRB", "Multiplication Operation to begin");
 
                                 try {
-                                    int iTotal = Integer.parseInt(sMemory) * Integer.parseInt(txtResults.getText().toString());
+                                    int iTotal = Integer.parseInt(sPreviousDisplay) * Integer.parseInt(txtResults.getText().toString());
                                     txtResults.setText(String.valueOf(iTotal));
                                 } catch (NumberFormatException nfe) {
                                     System.out.println("Could not parse " + nfe);
-                                    Log.e("ERROR", "nfe.getMessage(): " + nfe.getMessage());
+                                    Log.e("DebugRB", "nfe.getMessage(): " + nfe.getMessage());
                                 }
-
-                                bStartFresh = true;
-
+                                //bStartFresh = true;
+                                // causing issue with M memory functions
+                                sMemoryOperator = "";
                                 break;
+
                         }
                     }
                 }
-
                 break;
 
             case R.id.btnPlus:
-              //  Toast.makeText(this, "sOperator = '" + sOperator.toString() + "' pressed", Toast.LENGTH_SHORT).show();
-                /*
-                if (sOperator.equals("")) {
-                    // if the operator is being pressed the first time
-                    sOperator = "+";
-                    txtOperator.setText("+");
-                    sBeforeOperatorDisplayValue = txtResults.getText().toString();
-                    txtResults.setText("");
+                if ( ! txtResults.getText().equals("0")){
+                    if (sMemoryOperator == ""){
+                        sMemoryOperator = "+";
+                        sPreviousDisplay = txtResults.getText().toString();
+                        txtResults.setText("0");
+                    }
+                    else {
+                        Toast.makeText(this, "Addition:: One Operator at one time", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    // if the operator is already set, leave it as is.
-                }
-                */
-
-                if (sMemoryOperator == ""){
-                    sMemoryOperator = "+";
-                    sMemory = txtResults.getText().toString();
-                    txtResults.setText("0");
-                }
-                else {
-                    Toast.makeText(this, "Addition:: One Operator at one time ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Addition:: type a value before using Operator", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
             case R.id.btnDivide:
-                if (sMemoryOperator == ""){
-                    sMemoryOperator = "/";
-                    sMemory = txtResults.getText().toString();
-                    txtResults.setText("0");
-                }
-                else {
-                    Toast.makeText(this, "Division:: One Operator at one time ", Toast.LENGTH_SHORT).show();
+                if ( ! txtResults.getText().equals("0")) {
+                    if (sMemoryOperator == "") {
+                        sMemoryOperator = "/";
+                        sPreviousDisplay = txtResults.getText().toString();
+                        txtResults.setText("0");
+                    } else {
+                        Toast.makeText(this, "Division:: One Operator at one time", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(this, "Division:: type a value before using Operator", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
             case R.id.btnMinus:
-                if (sMemoryOperator == ""){
-                    sMemoryOperator = "-";
-                    sMemory = txtResults.getText().toString();
-                    txtResults.setText("0");
-                }
-                else {
-                    Toast.makeText(this, "Subtract:: One Operator at one time ", Toast.LENGTH_SHORT).show();
+                if ( ! txtResults.getText().equals("0")) {
+                    if (sMemoryOperator == "") {
+                        sMemoryOperator = "-";
+                        sPreviousDisplay = txtResults.getText().toString();
+                        txtResults.setText("0");
+                    } else {
+                        Toast.makeText(this, "Subtract:: One Operator at one time", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(this, "Subtract:: type a value before using Operator", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
             case R.id.btnMultiply:
-                if (sMemoryOperator == ""){
-                    sMemoryOperator = "*";
-                    sMemory = txtResults.getText().toString();
-                    txtResults.setText("0");
+                if ( ! txtResults.getText().equals("0")) {
+                    if (sMemoryOperator == "") {
+                        sMemoryOperator = "*";
+                        sPreviousDisplay = txtResults.getText().toString();
+                        txtResults.setText("0");
+                    } else {
+                        Toast.makeText(this, "Multiply:: One Operator at one time", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(this, "Multiply:: type a value before using Operator", Toast.LENGTH_SHORT).show();
                 }
-                else {
-                    Toast.makeText(this, "Multiple:: One Operator at one time ", Toast.LENGTH_SHORT).show();
-                }
-
                 break;
 
             case R.id.btnClear:
+                sPreviousDisplay = "";
                 sMemory = "";
+                // add code to light down the memory icon....
                 sMemoryOperator = "";
                 txtResults.setText("0");
-
                 break;
 
             case R.id.btnMemoryClear:
                 sMemory = "";
                 sMemoryOperator = "";
+                // code needs to go in here to light down the memory indicator.
                 break;
 
             case R.id.btnMemoryPlus:
+
+                Log.e("DebugRB", "current value in Memory:: " + sMemory);
+                Log.e("DebugRB", "txtResults.text = " + txtResults.getText().toString());
+                if ( ! txtResults.getText().equals("0")) {
+                    if (sMemory == ""){
+
+                        sMemory = txtResults.getText().toString();
+                        // code needs to go in here to light up the memory indicator.
+                    } else {
+                        try {
+                            int iTotal = Integer.parseInt(sMemory) + Integer.parseInt(txtResults.getText().toString());
+                            Log.e("DebugRB", "iTotal:: " + String.valueOf(iTotal));
+                            sMemory = String.valueOf(iTotal);
+                        } catch (NumberFormatException nfe) {
+                            System.out.println("Could not parse " + nfe);
+                            Log.e("DebugRB", "nfe.getMessage(): " + nfe.getMessage());
+                        }
+                    }
+                } else {
+                    Toast.makeText(this, "M+:: type value before using Operator", Toast.LENGTH_SHORT).show();
+                }
+                Toast.makeText(this, "Value being send to Memory:: " + sMemory, Toast.LENGTH_SHORT).show();
                 break;
+
             case R.id.btnMemoryMinus:
+                Toast.makeText(this, "Value in Memory:: " + sMemory, Toast.LENGTH_SHORT).show();
+
+                // writing code for MR button.... Putting it here in the absence of that button....
+                if (! sMemory.equals("")){
+                    txtResults.setText(sMemory);
+                    sMemory = "";
+                }
                 break;
         }
     }
