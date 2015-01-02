@@ -26,8 +26,8 @@
                 android:layout_gravity="left|top">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/strButton0"
                     android:id="@+id/txtResults"
@@ -36,13 +36,12 @@
                     android:layout_weight="1"
                     android:layout_gravity="right" />
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text=""
                     android:id="@+id/txtOperator"
                     android:textSize="@android:dimen/notification_large_icon_width"
-                    android:layout_weight="1"
                     android:layout_gravity="right" />
             </TableRow>
 
