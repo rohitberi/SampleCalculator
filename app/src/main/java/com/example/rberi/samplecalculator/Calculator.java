@@ -5,20 +5,20 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
+// import android.content.Context;
+// import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
+// import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
+// import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+// import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +47,7 @@ public class Calculator extends Activity
     private Button btnMemoryPlus;
     private Button btnMemoryMinus;
     private TextView txtResults;
+    private TextView txtDisplayOperator;
 
     private Boolean bStartFresh = false;
     private String sPreviousDisplay = "" ;
@@ -81,6 +82,7 @@ public class Calculator extends Activity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
         txtResults = (TextView) findViewById(R.id.txtResults);
+        txtDisplayOperator = (TextView) findViewById(R.id.txtDisplayOperator);
 
         btn1 = (Button) findViewById(R.id.btn1);
         btn0 = (Button) findViewById(R.id.btn0);
@@ -99,7 +101,7 @@ public class Calculator extends Activity
         btnEquals = (Button) findViewById(R.id.btnEquals);
         btnDecimal = (Button) findViewById(R.id.btnDecimal);
         btnClear = (Button) findViewById(R.id.btnClear);
-        btnMemoryClear = (Button) findViewById(R.id.btnClear);
+        btnMemoryClear = (Button) findViewById(R.id.btnMemoryClear);
         btnMemoryPlus = (Button) findViewById(R.id.btnMemoryPlus);
         btnMemoryMinus = (Button) findViewById(R.id.btnMemoryMinus);
 
@@ -209,16 +211,14 @@ public class Calculator extends Activity
                 break;
 
             case R.id.btn0:
-                if (txtResults.getText().equals("0")) {
-                }
-                else {
+                if (! txtResults.getText().equals("0")) {
                     txtResults.setText(txtResults.getText() + "0");
                 }
                 break;
 
             case R.id.btnEquals:
 
-                if (sMemoryOperator == ""){
+                if (sMemoryOperator.equals("")) {
                     // do Nothing
                     Toast.makeText(this,"There's Nothing to calculate",Toast.LENGTH_SHORT).show();
                 } else{
@@ -297,7 +297,7 @@ public class Calculator extends Activity
 
             case R.id.btnPlus:
                 if ( ! txtResults.getText().equals("0")){
-                    if (sMemoryOperator == ""){
+                    if (sMemoryOperator.equals("")){
                         sMemoryOperator = "+";
                         sPreviousDisplay = txtResults.getText().toString();
                         txtResults.setText("0");
@@ -312,7 +312,7 @@ public class Calculator extends Activity
 
             case R.id.btnDivide:
                 if ( ! txtResults.getText().equals("0")) {
-                    if (sMemoryOperator == "") {
+                    if (sMemoryOperator.equals("")) {
                         sMemoryOperator = "/";
                         sPreviousDisplay = txtResults.getText().toString();
                         txtResults.setText("0");
@@ -326,7 +326,7 @@ public class Calculator extends Activity
 
             case R.id.btnMinus:
                 if ( ! txtResults.getText().equals("0")) {
-                    if (sMemoryOperator == "") {
+                    if (sMemoryOperator.equals("")) {
                         sMemoryOperator = "-";
                         sPreviousDisplay = txtResults.getText().toString();
                         txtResults.setText("0");
@@ -340,7 +340,7 @@ public class Calculator extends Activity
 
             case R.id.btnMultiply:
                 if ( ! txtResults.getText().equals("0")) {
-                    if (sMemoryOperator == "") {
+                    if (sMemoryOperator.equals("")) {
                         sMemoryOperator = "*";
                         sPreviousDisplay = txtResults.getText().toString();
                         txtResults.setText("0");
@@ -353,17 +353,19 @@ public class Calculator extends Activity
                 break;
 
             case R.id.btnClear:
+                Toast.makeText(this, "C:: Operator pressed", Toast.LENGTH_SHORT).show();
                 sPreviousDisplay = "";
                 sMemory = "";
-                // add code to light down the memory icon....
+                txtDisplayOperator.setText(""); // code needs to go in here to light down the memory indicator.
                 sMemoryOperator = "";
                 txtResults.setText("0");
                 break;
 
             case R.id.btnMemoryClear:
+                Toast.makeText(this, "MC:: Operator pressed", Toast.LENGTH_SHORT).show();
                 sMemory = "";
                 sMemoryOperator = "";
-                // code needs to go in here to light down the memory indicator.
+                txtDisplayOperator.setText(""); // code needs to go in here to light down the memory indicator.
                 break;
 
             case R.id.btnMemoryPlus:
@@ -371,15 +373,16 @@ public class Calculator extends Activity
                 Log.e("DebugRB", "current value in Memory:: " + sMemory);
                 Log.e("DebugRB", "txtResults.text = " + txtResults.getText().toString());
                 if ( ! txtResults.getText().equals("0")) {
-                    if (sMemory == ""){
+                    if (sMemory.equals("")){
 
                         sMemory = txtResults.getText().toString();
-                        // code needs to go in here to light up the memory indicator.
+                        txtDisplayOperator.setText("M+"); // code needs to go in here to light up the memory indicator.
                     } else {
                         try {
                             int iTotal = Integer.parseInt(sMemory) + Integer.parseInt(txtResults.getText().toString());
                             Log.e("DebugRB", "iTotal:: " + String.valueOf(iTotal));
                             sMemory = String.valueOf(iTotal);
+                            txtDisplayOperator.setText("M+"); // code needs to go in here to light up the memory indicator.
                         } catch (NumberFormatException nfe) {
                             System.out.println("Could not parse " + nfe);
                             Log.e("DebugRB", "nfe.getMessage(): " + nfe.getMessage());
@@ -392,13 +395,28 @@ public class Calculator extends Activity
                 break;
 
             case R.id.btnMemoryMinus:
-                Toast.makeText(this, "Value in Memory:: " + sMemory, Toast.LENGTH_SHORT).show();
+                Log.e("DebugRB", "current value in Memory:: " + sMemory);
+                Log.e("DebugRB", "txtResults.text = " + txtResults.getText().toString());
+                if ( ! txtResults.getText().equals("0")) {
+                    if (sMemory.equals("")){
 
-                // writing code for MR button.... Putting it here in the absence of that button....
-                if (! sMemory.equals("")){
-                    txtResults.setText(sMemory);
-                    sMemory = "";
+                        sMemory = txtResults.getText().toString();
+                        txtDisplayOperator.setText("M-"); // code needs to go in here to light up the memory indicator.
+                    } else {
+                        try {
+                            int iTotal = Integer.parseInt(sMemory) - Integer.parseInt(txtResults.getText().toString());
+                            Log.e("DebugRB", "iTotal:: " + String.valueOf(iTotal));
+                            sMemory = String.valueOf(iTotal);
+                            txtDisplayOperator.setText("M-"); // code needs to go in here to light up the memory indicator.
+                        } catch (NumberFormatException nfe) {
+                            System.out.println("Could not parse " + nfe);
+                            Log.e("DebugRB", "nfe.getMessage(): " + nfe.getMessage());
+                        }
+                    }
+                } else {
+                    Toast.makeText(this, "M-:: type value before using Operator", Toast.LENGTH_SHORT).show();
                 }
+                Toast.makeText(this, "Value being send to Memory:: " + sMemory, Toast.LENGTH_SHORT).show();
                 break;
         }
     }

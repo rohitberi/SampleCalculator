@@ -39,10 +39,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text=""
-                    android:id="@+id/txtOperator"
+                    android:id="@+id/txtDisplayOperator"
                     android:textSize="@android:dimen/notification_large_icon_width"
-                    android:layout_gravity="right" />
+                    android:text="M"
+                    android:layout_gravity="right"
+                    android:textStyle="bold|italic" />
             </TableRow>
 
             <TableRow
